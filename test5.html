@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>带有对象的表达式</title>
+</head>
+<body>
+<div ng-app="" ng-init="person={firstName:'hu',lastName:'yq'}">
+    <p>姓：{{person.firstName}}</p>
+    <p>ng-bing版：<span  ng-bind="person.firstName"></span></p>
+    <input type="text" ng-model="first"/>
+    <input type="text" ng-model="last"/>
+    <p>{{first+' '+last}}</p>
+</div>
+<script src="js/angular.js"></script>
+</body>
+</html>
