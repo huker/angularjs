@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="" ng-init="number=1;price=5">
+    数量：<input type="number" ng-model="number">
+    价格：<input type="number" ng-model="price"/>
+    <p>总价： <span>{{number*price}}</span></p>
+    <!--//有运算就不能不init？-->
+</div>
+<script src="js/angular.js"></script>
+</body>
+</html>

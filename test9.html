@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ng repeat带有数组</title>
+</head>
+<body>
+<!--AngularJS 属性以 ng- 开头，但是您可以使用 data-ng- 来让网页对 HTML5 有效。-->
+<div data-ng-app="" data-ng-init="names=['hu','liu','zhou']">
+    <p>使用 ng-repeat 来循环数组</p>
+    <ul>
+        <li data-ng-repeat="name in names">
+            {{name}}
+        </li>
+    </ul>
+</div>
+<script src="js/angular.js"></script>
+</body>
+</html>

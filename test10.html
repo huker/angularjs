@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ng-repeat指令（带有对象</title>
+</head>
+<body>
+<div ng-app="" ng-init="names=[
+{name:'hu',age:'21'},
+{name:'liu',age:'20'},
+{name:'zhou',age:'19'}
+]">
+    <ul>
+        <li ng-repeat="x in names">
+            {{x.name+' '+x.age}}
+        </li>
+    </ul>
+</div>
+<script src="js/angular.js"></script>
+</body>
+</html>

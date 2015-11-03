@@ -2,11 +2,13 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>第一个指令</title>
+    <title>指令</title>
 </head>
 <body>
 <div ng-app="" ng-init="firstName='john'">
-    <p>name:<span ng-bind="firstName"></span></p>
+    <p>input:</p>
+    <p>name: <input type="text" ng-model="firstName"/></p>
+    <p>输入的是:{{firstName}}</p>
 </div>
 <script src="js/angular.js"></script>
 </body>
