@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表达式过滤器练习1</title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <p>name: {{firstName|uppercase}}</p>
+    <p>name: {{lastName|lowercase}}</p>
+    <input type="number" ng-model="quantity"/>
+    <input type="number" ng-model="price"/>
+    <p>总价= {{(quantity*price)|currency}}</p>
+</div>
+<script src="js/angular.js"></script>
+<script src="js/myController.js"></script>
+</body>
+</html>

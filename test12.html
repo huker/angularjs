@@ -5,6 +5,24 @@
     <title>控制器函数</title>
 </head>
 <body>
-
+<div ng-app="myApp" ng-controller="myCtrl">
+    first: <input type="text" ng-model="person.firstName"/><br>
+    last: <input type="text" ng-model="person.lastName"/><br>
+    name:{{fullName()}}
+</div>
+<script src="js/angular.js"></script>
+<script>
+    var app=angular.module('myApp',[]); //不声明app出错？
+    app.controller('myCtrl',function($scope){
+        $scope.person={
+            firstName:'hu',
+            lastName:'ll'
+        };
+        $scope.fullName=function(){
+            var x=$scope.person;
+            return x.firstName+' '+x.lastName;
+        }
+    })
+</script>
 </body>
 </html>
