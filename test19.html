@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <p>{{data.msg}}</p>
+    <p>{{realname}}</p>
+    <p>{{http}}</p>
+    <p>{{Data.msg}}</p>
+    <p>{{uname}}</p>
+
+</div>
+<script src="js/angular.js"></script>
+<script>
+angular.module('myApp',[])
+        .value('realname','luck')
+        .value('realname','lucker') //value可擦写
+        .constant('http','www.baidu.com') //constant不可擦写
+        .factory('Data',function(){
+            return{
+                msg:'nihao',
+                setMsg:function(){
+                    this.msg='no good';
+                }
+            }
+        })
+        .service('username',function(){
+            this.firstName='Zaker';
+            this.lastName='Poken';
+            this.getName=function(){
+                return this.firstName+this.lastName;
+            }
+        })
+        .controller('myCtrl',function($scope,realname,http,Data,username){
+            $scope.data={msg:'hello'};
+            $scope.realname=realname;
+            $scope.http=http;
+            $scope.Data=Data;
+            Data.setMsg();
+            $scope.uname=username.getName();
+            })
+</script>
+</body>
+</html>
