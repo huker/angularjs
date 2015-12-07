@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多个控制器中的factory</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller="FCtor">
+    <input type="text" ng-model="data.msg"/>
+    <p>{{data.msg}}</p>
+</div>
+<div ng-controller="SCtor">
+    <input type="text" ng-model="data.msg"/>
+    <p>{{data.msg}}</p>
+</div>
+<script src="js/angular.js"></script>
+<script>
+    angular.module('myApp',[])
+            .factory('data',function(){
+                return{
+                    msg:'来自factory'
+                }
+            })
+            .controller('FCtor',function($scope,data){
+//                $scope.data='我是第一个';
+                $scope.data=data;
+            })
+            .controller('SCtor',function($scope,data){
+//                $scope.data='我是第二个';
+                $scope.data=data;
+
+            })
+</script>
+</body>
+</html>
