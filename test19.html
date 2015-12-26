@@ -34,14 +34,14 @@ angular.module('myApp',[])
                 return this.firstName+this.lastName;
             }
         })
-        .controller('myCtrl',function($scope,realname,http,Data,username){
+        .controller('myCtrl',function($scope,realname,http,Data,username){ //key注入到函数中
             $scope.data={msg:'hello'};
             $scope.realname=realname;
             $scope.http=http;
             $scope.Data=Data;
             Data.setMsg();
             $scope.uname=username.getName();
-            })
+        })
 </script>
 </body>
 </html>
