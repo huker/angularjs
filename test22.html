@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ng-repeat用法回顾</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div style="padding: 10px; font-weight: bold">地址管理</div>
+    <ul class="list-group">
+        <!--<li class="list-group-item" ng-repeat="a in list" ng-if="!$last">-->
+            <!--&lt;!&ndash; 这儿在li上面加ng-if可以让第一个或last隐藏之类的&ndash;&gt;-->
+            <!--<h4>{{$index+1+'.'+a.address+' '+a.name+' '+$first+' '+$last}}</h4>-->
+        <!--</li>-->
+        <li class="list-group-item" ng-repeat="a in list" ng-class="{'active':$first}">
+            <h4>{{$index+1+'.'+a.address+' '+a.name}}</h4>
+        </li>
+    </ul>
+<script src="js/angular.js"></script>
+<script>
+angular.module('myApp',[])
+        .controller('myCtrl',function($scope){
+            $scope.list=[
+                {
+                    address:'苏州',
+                    name:'aaa'
+                },
+                {
+                    address:'杭州',
+                    name:'bbb'
+                },
+                {
+                    address:'无锡',
+                    name:'ccc'
+                },
+                {
+                    address:'南通',
+                    name:'ddd'
+                }
+            ]
+        })
+</script>
+</body>
+</html>
