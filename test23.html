@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>directive自定义html组件</title>
+</head>
+<body>
+<div ng-app="myApp">
+    <hello></hello>
+    <div aaa class="ccc"></div>
+</div>
+<script src="js/angular.js"></script>
+<script>
+    //在组件的重用上可用到 弹出层？
+    angular.module('myApp',[])
+            .directive('hello',function(){
+                return{
+                    //E是element
+                    restrict:'E',
+                    //replace是替换掉自定义的directive的名称（hello那个）
+                    replace:true,
+                    //template是模板 就是html代码片段
+                    template:'<div>hello angular</div>'
+                }
+            })
+            .directive('ccc',function(){
+                return{
+                    //C is class
+                    restrict:'C',
+                    link:function(){
+                        alert('ccc')
+                    }
+                }
+            })
+            .directive('aaa',function(){
+                return{
+                    //A is attr
+                    restrict:'A',
+                    link:function(){
+                        alert('aaa')
+                    }
+                }
+            })
+
+</script>
+</body>
+</html>
