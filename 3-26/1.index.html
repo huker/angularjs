@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html  ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    {{username}}
+    <!-- ng-model {{}}是双向数据绑定-->
+    <input type="text" ng-model="username"/>
+</div>
+<script src="angular.js"></script>
+<script>
+    /*定义一个新模块*/
+    angular.module('myApp',[]);
+    /*获取这个模块 直接这样写比较好 如果很多的话就不会污染全局变量 产生冲突*/
+    angular.module('myApp').controller('myCtrl',function($scope){
+//       scope相当是数据模型
+        $scope.username='hello';
+    })
+
+</script>
+</body>
+</html>
