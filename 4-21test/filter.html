@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ul>
+    <li ng-repeat="book in books | limitTo:4 | orderBy:ob">{{book}}</li>
+    <p>{{'abcde'|uppersome:2}}</p>
+</ul>
+
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').filter('uppersome',function(){
+       return function(input,length){
+           return input.toUpperCase().slice(0,length)+input.slice(length);
+       }
+    });
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.books = [{name:'node',price:5},{name:'js',price:8}];
+        $scope.ob='-price';
+    })
+</script>
+</body>
+</html>
