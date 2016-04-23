@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container"  ng-controller="myCtrl">
+    <form>
+        <label for="add">添加书名</label>
+        <input type="text" id="add" name="add" ng-model="addbook"/>
+        <button ng-click="addname()">add</button>
+    </form>
+    <table class="table table-responsive">
+        <tr>
+            <td>书名</td>
+        </tr>
+        <tr ng-repeat="book in books track by $index">
+            <td>{{ book}}</td>
+        </tr>
+    </table>
+</div>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').factory('changeBooks',function(){
+        var books=['node','js','html5'];
+        return{
+            list:function(){
+              return books;
+            },
+            add:function(data){
+                books.push(data);
+                return books
+            }
+        }
+    });
+    angular.module('myApp').controller('myCtrl',function($scope,changeBooks){
+        $scope.addbook='';
+        $scope.books=changeBooks.list();
+        $scope.addname=function(){
+            $scope.books=changeBooks.add($scope.addbook)
+        };
+
+    })
+</script>
+</body>
+</html>
