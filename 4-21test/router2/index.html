@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+</head>
+<body>
+<ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="#/index">首页</a></li>
+    <li role="presentation"><a href="#/detail">详情</a></li>
+</ul>
+<div ng-view>
+
+</div>
+<script src="../../js/angular.js"></script>
+<script src="../../js/angular-route.js"></script>
+<script>
+    //route依赖写进来
+    angular.module('myApp',['ngRoute']);
+    angular.module('myApp').controller('homeCtrl',function($scope,$http){
+        $http.get('book.json').success(function(data){
+            $scope.books=data;
+        })
+    });
+    angular.module('myApp').controller('detailCtrl',function($scope,$routeParams,$http){
+        $http.get('book.json').success(function(data){
+            $scope.book=data.filter(function(result){
+                return result.id==$routeParams.id;
+            })[0]
+        })
+    });
+//  config方法是angular应用的第一个方法
+//  对$routeProvider(angular-route提供的)这个服务进行配置
+    angular.module('myApp').config(function($routeProvider){
+        //进行路由配置
+        //会各自发ajax请求 请求页面
+        $routeProvider.when('/index',{
+            templateUrl:'home.html',   //模板
+            controller:'homeCtrl'     //控制器 用来提供数据的
+        }).when('/detail/:id',{
+            templateUrl:'detail.html',
+            controller:'detailCtrl'
+        }).otherwise({
+            redirect:'/index'
+        })
+    })
+</script>
+</body>
+</html>
