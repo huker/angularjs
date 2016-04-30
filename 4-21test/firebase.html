@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="fireModule">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
 </head>
 <body>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" ng-controller="fireCtrl">
+            <input type="text" ng-model="book.name"/>
+            <button class="btn btn-success" ng-click="add()">添加</button>
+            <ul>
+                <li ng-repeat="book in books">{{book.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="angularfire.js"></script>
+<script src="firebase.js"></script>
+<script>
+    angular.module('fireModule',['firebase']);
+    angular.module('fireModule').controller('fireCtrl',function($scope,$firebaseArray){
+        $scope.book={};
+        //新建一个firebase数据库
+        //var base = new Firebase('https://sizzling-heat-3542.firebaseio.com/huyeqing');
+        var base = new Firebase('https://sweltering-inferno-9330.firebaseio.com/huk');
+        //得到一个可操作的数据库对象
+        var bookbase = $firebaseArray(base);
+        $scope.books=bookbase;
+        $scope.add = function(){
+            bookbase.$add($scope.book);
+        }
+    })
+</script>
 </body>
 </html>
