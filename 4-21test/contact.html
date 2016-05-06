@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="fireModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" ng-show="msg">{{msg}}</div>
+            <div class="row">
+                <div class="col-md-12" ng-controller="fireCtrl">
+                    <button class="btn btn-primary" ng-click="add()">添加联系人</button>
+                    <button class="btn btn-warning" ng-click="add()">修改联系人</button>
+                </div>
+            </div>
+            <form action="">
+                <div class="row">
+                    <h3>添加联系人</h3>
+                    <div class="col-md-12">
+                        <label>姓名</label>
+                        <input class="form-control" type="text" ng-model="contact.name" placeholder="name" required/>
+                    </div>
+                    <div class="col-md-12">
+                        <label>邮箱</label>
+                        <input class="form-control" type="email" ng-model="contact.email" placeholder="email" required/>
+                    </div>
+                    <div class="col-md-12">
+                        <label>
+                            <input class="btn btn-primary" type="submit" value="提交"/>
+                        </label>
+
+                    </div>
+                </div>
+            </form>
+            <form action="">
+                <div class="row">
+                    <h3>修改联系人</h3>
+                    <div class="col-md-12">
+                        <label>姓名</label>
+                        <input class="form-control" type="text" ng-model="contact.name" placeholder="name" required/>
+                    </div>
+                    <div class="col-md-12">
+                        <label>邮箱</label>
+                        <input class="form-control" type="email" ng-model="contact.email" placeholder="email" required/>
+                    </div>
+                    <div class="col-md-12">
+                        <label>
+                            <input class="btn btn-primary" type="submit" value="修改"/>
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <h3>你的联系人</h3>
+                <table class="table table-responsive">
+                    <tr>
+                        <th>姓名</th>
+                        <th>邮箱</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="contact in contacts">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../js/angular.js"></script>
+<script src="angularfire.js"></script>
+<script src="firebase.js"></script>
+<script>
+    angular.module('fireModule',['firebase']);
+    angular.module('fireModule').controller('fireCtrl',function($scope,$firebaseArray){
+        //新建一个firebase数据库
+        //var base = new Firebase('https://sizzling-heat-3542.firebaseio.com/huyeqing');
+        var base = new Firebase('https://sweltering-inferno-9330.firebaseio.com/huk_contactbase');
+        //得到一个可操作的数据库对象
+        var contactbase = $firebaseArray(base);
+        $scope.contacts=contactbase;
+    })
+</script>
+</body>
+</html>
