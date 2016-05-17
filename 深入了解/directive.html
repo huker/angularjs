@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <login-panel></login-panel>
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+
+    });
+    //loginPanel在用的时候要写成login-panel
+    angular.module('myApp').directive('loginPanel',function(){
+        return{
+            //链接函数
+            link:function(){},
+            //模板 实现dom的转换
+            template:"<input type='text' name='username'>"
+        }
+    })
+</script>
+</html>
