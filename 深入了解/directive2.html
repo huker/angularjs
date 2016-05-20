@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <login-panel>hello</login-panel>
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+
+    });
+    //loginPanel在用的时候要写成login-panel
+
+    angular.module('myApp').directive('loginPanel',function(){
+        return{
+            //链接函数
+            link:function(scope,element,attrs){
+                element.css('color','red');
+            }
+        }
+    })
+</script>
+</html>
