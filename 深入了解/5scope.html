@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="parentCtrl">
+    {{parent}}
+    {{child}}
+    <div ng-controller="childCtrl">
+        {{parent}}
+        {{child}}
+    </div>
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('parentCtrl',function($scope){
+        $scope.parent = 'parent';
+    });
+    angular.module('myApp').controller('childCtrl',function($scope){
+        $scope.child = 'child';
+    });
+</script>
+</html>
