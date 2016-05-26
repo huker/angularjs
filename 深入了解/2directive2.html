@@ -3,10 +3,28 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+            height: 50px;
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
+
 <div ng-controller="myCtrl">
-    <login-panel>hello</login-panel>
+
+    {{name}}
+    <login-panel>{{name}}</login-panel>
+</div>
+<div>
+    {{name}}
+</div>
+
+<div ng-controller="otherCtrl">
+    {{name}}
+    <login-panel>{{name}}</login-panel>
 </div>
 </body>
 <script src="../js/angular.js"></script>
@@ -15,12 +33,16 @@
     angular.module('myApp').controller('myCtrl',function($scope){
 
     });
+    angular.module('myApp').controller('otherCtrl',function($scope){
+
+    });
     //loginPanel在用的时候要写成login-panel
 
     angular.module('myApp').directive('loginPanel',function(){
         return{
             //链接函数
             link:function(scope,element,attrs){
+                scope.name = 'hi';
                 element.css('color','red');
             }
         }

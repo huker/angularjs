@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="watchCtrl">
+    <input type="text" my-model="age"/>
+    {{age}}
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('watchCtrl',function($scope){
+        $scope.$watch('age',function(){
+
+        })
+    });
+    angular.module('myApp').directive('myModel',function(){
+        return{
+            /**
+             *
+             * @param scope 作用域
+             * @param element 当前DOM元素的jq对象
+             * @param attrs 属性的对象
+             */
+            link:function(scope,element,attrs){
+                element.on('change',function(){
+                    var val = element.val();
+                    console.log(attrs);
+                    scope[attrs['myModel']] = val;
+                    //强行进行脏值检查 检查值的变化 然后通知watcher
+                    scope.$apply();
+                });
+                scope.$watch(attrs['myModel'],function(newVal){
+                    element.val(newVal);
+                })
+            }
+        }
+    })
+
+</script>
+</html>

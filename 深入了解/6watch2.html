@@ -18,12 +18,11 @@
 <script src="../js/angular.js"></script>
 <script>
     angular.module('myApp',[]);
-    angular.module('myApp').controller('watchCtrl',function($scope,$timeout){
-        $scope.age = '';
-        $timeout(function(){
-            console.log($scope.age);
+    angular.module('myApp').controller('watchCtrl',function($scope){
+        $scope.$watch('age',function(newVal,oldVal){
+            console.log(newVal,oldVal);
             console.log($scope)
-        },5000)
+        })
     });
 
 </script>
