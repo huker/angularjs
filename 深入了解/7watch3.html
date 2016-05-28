@@ -11,25 +11,25 @@
 </head>
 <body ng-init="show=true">
 <div ng-controller="watchCtrl" ng-show="show">
-    <input type="text" ng-model="age"/>
-    {{age}}
-    <button ng-click="hide()">隐藏</button>
+    <input type="text" ng-model="one"/>
+    <input type="text" ng-model="two"/>
+    <input type="text" ng-model="three"/>
 </div>
 </body>
 <script src="../js/angular.js"></script>
 <script>
     angular.module('myApp',[]);
     angular.module('myApp').controller('watchCtrl',function($scope){
-        $scope.$watch('age',function(newVal,oldVal){
-            console.log(newVal,oldVal);
+        //死循环
+        $scope.$watch('one',function(newVal,oldVal){
+            $scope.two = newVal;
         });
-        $scope.hide = function(){
-            $scope.show = false;
-        };
-        $scope.$on('$destroy',function(){
-            console.log('destroy')
-        })
-
+        $scope.$watch('two',function(newVal,oldVal){
+            $scope.three = newVal;
+        });
+        $scope.$watch('three',function(newVal,oldVal){
+            $scope.one = Math.random();
+        });
     });
 
 </script>
