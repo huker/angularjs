@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="parentCtrl">
+    {{parent}}
+    {{count}}
+    <div ng-controller="childCtrl">
+        {{child}}
+        {{count}}
+        <input type="text" ng-model="num"/>
+        <button ng-click="$emit('add',num)">向上传递</button>
+        <button ng-click="$broadcast('add',num)">向下传递</button>
+        <div ng-controller="grandCtrl">
+            {{grand}}
+            {{count}}
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('parentCtrl',function($scope){
+        $scope.count = 0;
+        $scope.parent = 'parent';
+        $scope.$on('add',function(event,num){
+            $scope.count = $scope.count+parseInt(num);
+        })
+    });
+    angular.module('myApp').controller('childCtrl',function($scope){
+        $scope.count = 0;
+        $scope.child = 'child';
+        $scope.$on('add',function(event,num){
+            $scope.count = $scope.count+parseInt(num);
+        })
+    });
+    angular.module('myApp').controller('grandCtrl',function($scope){
+        $scope.count = 0;
+        $scope.grand = 'grand';
+        $scope.$on('add',function(event,num){
+            $scope.count = $scope.count+parseInt(num);
+        })
+    });
+
+</script>
+</html>

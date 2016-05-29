@@ -18,9 +18,14 @@ Scope.prototype.$watch = function(expr,listen){
 
 Scope.prototype.$digest = function(){
     var dirty;
+    //$digest执行10次就报错
+    var count = 10;
     do{
-        dirty = this.$digestOnce()
-    }while(dirty)
+        dirty = this.$digestOnce();
+        if(dirty && count == 0){
+            throw Error('10 $digest() iterations reached. Aborting!')
+        }
+    }while(dirty && count--)
 };
 
 //检测一次脏数据 返回数据是否脏

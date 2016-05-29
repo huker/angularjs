@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="cartCtrl">
+    总价：{{allprice}}
+    <div ng-controller="detailCtrl">
+        <table>
+            <tr><td>名称</td><td>单价</td><td>数量</td></tr>
+            <tr ng-repeat="item in items"><td>{{item.name}}</td><td>{{item.price}}</td>
+                <td><input type="text" ng-model="item.amount" ng-change="$emit('change')"/></td></tr>
+        </table>
+    </div>
+</div>
+</body>
+<script src="../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('cartCtrl',function($scope){
+        $scope.allprice = 0;
+        $scope.items = [{name:'独角兽',price:300,amount:1},{name:'能天使',price:200,amount:1}];
+        $scope.$on('change',function(){
+            var allprice = 0;
+            $scope.items.forEach(function(item){
+                allprice += item.price * item.amount;
+            });
+            $scope.allprice = allprice;
+        })
+    });
+    angular.module('myApp').controller('detailCtrl',function($scope){
+
+    });
+
+</script>
+</html>
