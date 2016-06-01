@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myApp2">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div id="content" ng-controller="myCtrl">
+    {{name}}
+</div>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp1',[]);
+    angular.module('myApp1').controller('myCtrl',function($scope){
+        $scope.name = 'aaa';
+    });
+    angular.module('myApp2',['myApp1','myApp3']);
+    angular.module('myApp2').controller('myCtrl',function($scope){
+        $scope.name = 'bbb';
+    });
+    angular.module('myApp3',[]);
+    angular.module('myApp3').controller('myCtrl',function($scope){
+        $scope.name = 'ccc';
+    });
+
+
+</script>
+</html>
