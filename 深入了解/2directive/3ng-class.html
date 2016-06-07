@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .main{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <div class="{{main}}">hahaha</div>
+</div>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.main = 'main';
+    });
+
+</script>
+</html>

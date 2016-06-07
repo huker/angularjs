@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container"  ng-controller="myCtrl">
+    <form action="">
+        <div ng-class="{'has-error':username.length<=3,'has-warning':username.length<=6,'has-success':username.length>6}">
+            <label class="control-label" for="username">用户名：</label>
+            <input class="form-control" type="text" id="username" ng-model="username">
+        </div>
+    </form>
+    <ul class="nav nav-tabs">
+        <li ng-click="seletedMenu = 'Home'" role="presentation" ng-class="{'active':seletedMenu == 'Home'}"><a href="#">Home</a></li>
+        <li ng-click="seletedMenu = 'Profile'" role="presentation" ng-class="{'active':seletedMenu == 'Profile'}"><a href="#">Profile</a></li>
+        <li ng-click="seletedMenu = 'Messages'" role="presentation" ng-class="{'active':seletedMenu == 'Messages'}"><a href="#">Messages</a></li>
+    </ul>
+</div>
+
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.seletedMenu = 'Home';
+        console.log($scope)
+    });
+
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container">
+<my-student>
+    <div>这是原来的内容</div>
+</my-student>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+    });
+    angular.module('myApp').directive('myStudent',function(){
+        return{
+            transclude:true,
+            restrict:'AEMC',
+            replace:true,
+            template:'<div class="panel panel-default"><div class="panel-heading">Panel heading without title</div><div class="panel-body" ng-transclude>Basic panel example </div></div>'
+        }
+    })
+
+</script>
+</html>
