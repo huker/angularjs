@@ -27,28 +27,17 @@
 <script src="../../js/angular.js"></script>
 <script>
     angular.module('myApp',[]);
-    angular.module('myApp').provider('getCalc',function () {
-        var prefix = '$';
-        this.setPrefix = function (p) {
-            prefix = p;
-        };
-        this.$get = function () {
-            return {
-                '+':function (a,b) { return prefix+(a+b)},
-                '-':function (a,b) { return prefix+(a-b)},
-                '*':function (a,b) { return prefix+(a*b)},
-                '/':function (a,b) { return prefix+(a/b)},
-            }
-        }
-    });
-    angular.module('myApp').config(function (getCalcProvider) {
-        getCalcProvider.setPrefix('人民币');
+    angular.module('myApp').service('getCalc',function () {
+                this['+']=function (a,b) { return a+b},
+                this['-']=function (a,b) { return a-b},
+                this['*']=function (a,b) { return a*b},
+                this['/']=function (a,b) { return a/b}
     })
     angular.module('myApp').controller('myCtrl',function(getCalc){
         var vm = this;
         vm.doCalc = function () {
             console.log('1')
-            vm.result = getCalc[vm.operate]((vm.a),(vm.b));
+            vm.result = getCalc[vm.operate](Number(vm.a),Number(vm.b));
         }
     });
 </script>

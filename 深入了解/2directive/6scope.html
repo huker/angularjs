@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" >
+    <div ng-controller="myCtrl">
+        {{person1}}
+        {{person2}}
+        <hr>
+        <person name="{{person1}}"></person>
+        <person name="{{person2}}"></person>
+    </div>
+
+    <hr>
+    <div ng-controller="myCtrl">
+        {{person1}}
+        {{person2}}
+        <hr>
+        <personto name="person1"></personto>
+        <personto name="person2"></personto>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        {{person1}}
+        {{person2}}
+        <hr>
+        <personth name="person1" greet="say()"></personth>
+        <personth name="person2" greet="say()"></personth>
+    </div>
+
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function ($scope) {
+        $scope.person1 = 'lilei';
+        $scope.person2 = 'wanger';
+        $scope.say = function () {
+            alert('hi')
+        }
+    })
+    angular.module('myApp').directive('person',function () {
+        return{
+            scope:{
+                name:'@name'
+            },
+            template:'<input type="text" ng-model="name"><div>name:{{name}}</div>'
+        }
+    })
+    angular.module('myApp').directive('personto',function () {
+        return{
+            scope:{
+                name:'=name'
+            },
+            template:'<input type="text" ng-model="name"><div>name:{{name}}</div>'
+        }
+    })
+    angular.module('myApp').directive('personth',function () {
+        return{
+            scope:{
+                name:'=name',
+                greet:'&'
+            },
+            template:'<input type="text" ng-model="name"><div>name:{{name}}</div><button ng-click="greet()">click</button>'
+        }
+    })
+</script>
+</html>

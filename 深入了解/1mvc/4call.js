@@ -12,11 +12,12 @@ function foo(){
  */
 Function.prototype.myCall = function(target){
     var source = this.toString();
-    //console.log(source);
+    console.log(source);
     source = source.replace(/this/,function(result){
-        console.log(arguments);
+        // console.log(arguments);
         return 'arguments[0]';
     });
+    console.log(source)
     //console.log(source)
     eval('('+source+')(target)');
 };

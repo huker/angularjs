@@ -8,13 +8,14 @@ var greet = function(word,name,hello){
 //定义的服务
 var registry = {
     word:{
-        text:'hello'
-    },
-    name:{
-        text:'yctu'
+        text:'hello',
+        age:12
     },
     hello:{
         text:'hi'
+    },
+    name:{
+        text:'yctu'
     }
 };
 
@@ -23,15 +24,15 @@ var inject = function(fun){
     var func = fun.toString();
     //var service = func.match(/function\s?\((\w+)\)/);
     var services = func.match(/function\s?\((.+)\)/);
-    console.log(services);
+    // console.log(services);
     services = services[1];
-    console.log(services);
     var service = services.split(',');
     var args = [];
     for(var i=0;i<service.length;i++){
         var argObj = registry[service[i]];  //text:'hello'
         args.push(argObj);
     }
+    console.log(args);
     fun.apply(null,args)
 };
 

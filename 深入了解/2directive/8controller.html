@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+    <!--<girl beautiful smart></girl>-->
+    <girl kind="beautiful,smart"></girl>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+    });
+    angular.module('myApp').directive('girl',function(){
+        return{
+            restrict:'E',
+            scope:true,
+            //控制器里的是依赖注入进来的 是写死的$...
+            //link是用来将指令隔离开的,而controller是提供复用的行为的(给别的指令调用的)
+            // 比如这边的话就是girl的属性要给smart和beautiful来修改
+            controller:function ($scope, $element, $attrs) {
+                $scope.kinds = [];
+                this.add = function (ele) {
+                    $scope.kinds.push(ele)
+                }
+            },
+            template:'<h1>hi</h1>{{kinds}}',
+            //link里的是形参 可以随便写
+            link:function (scope,element,attrs) {
+                element.bind('click',function () {
+                    alert(scope.kinds);
+                })
+            }
+        }
+    })
+    //上面在controller里面定义的就可以在link的第四个参数里面调用这个控制器(要先require进来)
+    angular.module('myApp').directive('kind',function () {
+        return{
+            require:'girl',
+            link:function (scope, element, attrs, girlCtrl) {
+                girlCtrl.add(attrs.kind)
+            }
+
+        }
+    })
+//    angular.module('myApp').directive('beautiful',function () {
+//        return{
+//            require:'girl',
+//            link:function (scope, element, attrs, girlCtrl) {
+//                girlCtrl.add('beautiful')
+//            }
+//
+//        }
+//    })
+//    angular.module('myApp').directive('smart',function () {
+//        return{
+//            require:'girl',
+//            link:function (scope, element, attrs, girlCtrl) {
+//                girlCtrl.add('smart')
+//            }
+//
+//        }
+//    })
+
+</script>
+</html>

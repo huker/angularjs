@@ -5,33 +5,25 @@
     <title></title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
     <style>
-        div{
-            height: 50px;
-            border: 1px solid red;
-        }
-        p{
-            border: 1px solid green;
-            height: 50px;
-        }
+
     </style>
 </head>
-<body>
-<my-student></my-student>
-<div my-student></div>
-<div class="my-student"></div>
-<!-- directive:my-student -->
+<body class="container">
+<my-student>
+    <div>这是原来的内容</div>
+</my-student>
+
 </body>
 <script src="../../js/angular.js"></script>
 <script>
     angular.module('myApp',[]);
     angular.module('myApp').controller('myCtrl',function($scope){
     });
-    angular.module('myApp').
-    ('myStudent',function(){
+    angular.module('myApp').directive('myStudent',function(){
         return{
-            restrict:'AEMC',
+            transclude:true,
             replace:true,
-            template:'<p>hello world</p>'
+            template:'<div>我是template<ng-transclude></ng-transclude></div>'
         }
     })
 

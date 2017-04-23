@@ -37,6 +37,7 @@
                     scope.$apply();
                 });
                 scope.$watch(attrs['myModel'],function(newVal){
+                    console.log(element)
                     element.val(newVal);
                 })
             }

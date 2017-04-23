@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+    <div times="4">
+        <span>{{word}}</span>
+    </div>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+    });
+    angular.module('myApp').directive('times',function(){
+        return{
+            restrict:'A',
+            //顺序:编译函数,对dom模版进行编译,compile在template替换之后,scope链接link函数执行前
+            compile:function (element, attrs) {
+                console.log('compile start')
+                var temp = element.children();
+                for(var i = 0;i<attrs.times-1;i++){
+                    element.append(temp.clone());
+                }
+                //return的就是link函数
+                return function (scope, ele, attrs) {
+                    scope.word = 'hello1';
+                    console.log('compile link ok')
+                }
+            },
+            link:function (scope, ele, attrs) {
+                scope.word = 'hello2';
+                console.log('link ok')
+            }
+        }
+    })
+
+</script>
+</html>

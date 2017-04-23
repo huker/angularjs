@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+<input type="text" ng-model="format">
+当前时间:<span my-current="format"></span>
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+    });
+    angular.module('myApp').directive('myCurrent',function($interval,dateFilter){
+        return{
+            //连接函数 实现dom操作和scope赋值
+            link:function (scope,element,attrs) {
+                function getdate() {
+                    element.html(dateFilter(new Date(),scope[attrs['myCurrent']]))
+                }
+                var timeDate = $interval(function () {
+                    getdate();
+                },1000);
+//                scope.on('$destory',function () {
+//                    $interval.cancel(timeDate)
+//                })
+            }
+        }
+    })
+
+</script>
+</html>

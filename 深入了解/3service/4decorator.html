@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" ng-controller="myCtrl">
+
+</div>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').config(function ($provide) {
+        $provide.decorator('$log',function ($delegate) {
+            var methodArr = ['log','error','warn','debug','info'];
+            angular.forEach(methodArr,function (method) {
+                console.log($delegate[method])
+                $delegate[method] = decorator($delegate[method]);
+            })
+            function decorator(method) {
+                //此处的arguments是function
+//                console.log(arguments)
+                return function () {
+                    //此处的arguments是'log'等
+                    var args = Array.prototype.slice.call(arguments);
+                    console.log(arguments)
+                    args.unshift(new Date().toLocaleString());
+                    method.apply(null,args)
+                }
+            }
+            return $delegate;
+        })
+    })
+    angular.module('myApp').controller('myCtrl',function($log){
+        $log.debug('debug');
+        $log.error('error');
+        $log.info('info');
+        $log.warn('warn');
+        $log.log('log');
+    });
+</script>
+</body>
+</html>

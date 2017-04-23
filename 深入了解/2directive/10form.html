@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+<div class="row">
+    <form action="" name="userform" novalidate="novalidate">
+        <div class="form-group" ng-class="{'has-error':userform.email.$invalid && userform.email.$dirty}">
+            <label for="email" class="control-label">email:</label>
+            <input type="email" name="email" id="email" class="form-control" ng-model="user.email" ng-minlength="3">
+        </div>
+        <p class="help-block" ng-show="userform.$error.email">输入的邮箱格式不规范</p>
+        <p class="help-block" ng-show="userform.$error.minlength">输入长度不满足条件</p>
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+    <pre>
+        {{userform | json}}
+    </pre>
+</div>
+
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.user = {}
+    });
+
+</script>
+</html>
