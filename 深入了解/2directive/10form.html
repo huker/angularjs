@@ -14,7 +14,7 @@
     <form action="" name="userform" novalidate="novalidate">
         <div class="form-group" ng-class="{'has-error':userform.email.$invalid && userform.email.$dirty}">
             <label for="email" class="control-label">email:</label>
-            <input type="email" name="email" id="email" class="form-control" ng-model="user.email" ng-minlength="3">
+            <input type="email" name="emailcheck" id="email" class="form-control" ng-model="user.email" ng-minlength="3">
         </div>
         <p class="help-block" ng-show="userform.$error.email">输入的邮箱格式不规范</p>
         <p class="help-block" ng-show="userform.$error.minlength">输入长度不满足条件</p>
@@ -31,8 +31,12 @@
 <script src="../../js/angular.js"></script>
 <script>
     angular.module('myApp',[]);
-    angular.module('myApp').controller('myCtrl',function($scope){
+    angular.module('myApp').controller('myCtrl',function($rootScope,$scope){
         $scope.user = {}
+        var subScope = $rootScope.$new(true);
+        var subScope2 = $scope.$new(true);
+        console.log(subScope)
+        console.log(subScope2)
     });
 
 </script>

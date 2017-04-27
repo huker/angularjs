@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <style>
+
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+<div class="row">
+    <form action="" name="userform" novalidate="novalidate">
+        <div class="form-group" ng-class="{'has-error':userform.email.$invalid && userform.email.$dirty}">
+            <label for="email" class="control-label">email:</label>
+            <input check-errors type="email" name="email" id="email" class="form-control" ng-model="user.email" ng-minlength="3">
+        </div>
+        <!--<p class="help-block" ng-show="userform.$error.email">输入的邮箱格式不规范</p>-->
+        <!--<p class="help-block" ng-show="userform.$error.minlength">输入长度不满足条件</p>-->
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+    <pre>
+        {{userform | json}}
+    </pre>
+</div>
+
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.user = {}
+    });
+    angular.module('myApp').filter('errorChange',function () {
+        var filterobj = {
+            'email':'邮箱格式不规范',
+            'minlength':'输入的长度不够'
+        };
+        return function(input){
+            return filterobj[input];
+        }
+    });
+    angular.module('myApp').directive('checkErrors',function ($compile) {
+        return{
+            restrict:'A',
+            require:'ngModel',
+            link:function (scope, element, attrs,ngModel) {
+                console.log(ngModel.userform)
+                //动态生成dom 插入到input后面
+                //1 生成一个独立的scope
+                //true是设置它是独立的 不继承前面scope里面的属性 所有subScope是个空的scope
+                var subScope = scope.$new(true);
+                console.log(subScope)
+                subScope.hasError = function () {
+                    return ngModel.$dirty && ngModel.$invalid;
+                };
+                subScope.errors = function () {
+                    //是个对象,值都是布尔值
+                    return ngModel.$error;
+                };
+                var tmpl = $compile('<p class="help-block" ng-repeat="(key,value) in errors()" ng-show="hasError()">{{key | errorChange}}</p>');
+                //得到一个jquery对象tips
+                var tips = tmpl(subScope);
+                element.after(tips);
+            }
+        }
+    })
+</script>
+</html>
