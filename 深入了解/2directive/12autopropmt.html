@@ -34,13 +34,14 @@
     angular.module('myApp').controller('myCtrl',function($scope){
         $scope.user = {}
     });
-    angular.module('myApp').filter('errorChange',function () {
-        var filterobj = {
-            'email':'邮箱格式不规范',
-            'minlength':'输入的长度不够'
-        };
+    //定义一个常量
+    angular.module('myApp').constant('errors',{
+        'email':'邮箱格式不规范',
+        'minlength':'输入的长度不够'
+    });
+    angular.module('myApp').filter('errorChange',function (errors) {
         return function(input){
-            return filterobj[input];
+            return errors[input];
         }
     });
     angular.module('myApp').directive('checkErrors',function ($compile) {
