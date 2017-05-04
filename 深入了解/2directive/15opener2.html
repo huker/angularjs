@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .container{
+            width: 150px;
+            margin: 100px auto;
+
+        }
+        .title{
+            width: 100px;
+            height: 30px;
+            border: 1px solid red;
+            background: #61b6d9;
+        }
+        .content{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #8a6d3b;
+            background: #2e6da4;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="container" ng-controller="myCtrl">
+<group>
+    <opener ng-repeat="opener in openers" title="title">
+        {{content}}
+    </opener>
+</group>
+
+</body>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($scope){
+        $scope.openers = [
+            {
+                title:'标题1',
+                content:'内容1'
+            },
+            {
+                title:'标题2',
+                content:'内容2'
+            },
+            {
+                title:'标题3',
+                content:'内容3'
+            }
+        ];
+    });
+    angular.module('myApp').directive('group',function () {
+        return{
+            controller:function () {
+                //构建一个数组存放所有的scope
+                var openers = [];
+                //注册一个存放scope的方法
+                this.addOpener = function (opener) {
+                    openers.push(opener)
+                };
+                //代理点击事件
+                this.open = function (selected) {
+                    angular.forEach(openers,function (item) {
+                        if(item != selected){
+                            item.show = false;
+                        }
+                    });
+                    console.log(selected.show)
+                    selected.show  = !selected.show;
+
+                }
+
+            }
+        }
+    })
+    angular.module('myApp').directive('opener',function () {
+        return{
+            restrict:'E',
+            replace:true,
+            transclude:true,
+            scope:{
+                title:'='
+            },
+            require:'^group',
+            templateUrl:'15tmpls.html',
+            link:function (scope, element, attrs,groupCtrl) {
+                groupCtrl.addOpener(scope);
+                scope.toggle = function () {
+                    groupCtrl.open(scope);
+                }
+            }
+        }
+    })
+</script>
+</html>

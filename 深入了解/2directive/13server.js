@@ -20,7 +20,7 @@ http.createServer(function (req,res) {
             if(contentType == 'application/json'){
                 var json = JSON.parse(str);
                 console.log(json)
-                var dataJson = JSON.stringify({unique:users.indexOf(json.username) == -1});
+                var dataJson = JSON.stringify({same:users.indexOf(json.username) == -1});
                 res.end(dataJson);
             }else{
                 res.end('404')

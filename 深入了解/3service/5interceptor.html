@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" ng-controller="myCtrl">
+
+</div>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($http){
+        $http.get('http://localhost:8004').success(function (data,status,headers,config) {
+            console.log(arguments)
+        }).error(function () {
+            console.log(arguments)
+        }).then(function (response) {
+            console.log(response)
+        })
+    });
+    //定义一个拦截器(拦截器的感觉和node里面中间件有点像)
+    angular.module('myApp').factory('myinterceptor',function () {
+        return{
+            'request':function (config) {
+                console.log('1request');
+                return config;
+            },
+            'response':function (response) {
+                console.log('2response');
+//                response.data[0].name = response.data[0].name.toUpperCase();
+                return response;
+            },
+            //请求发送失败或者被拦截器拒绝时调用
+            'requestError':function () {
+                console.log('3requestError');
+            },
+            //
+            'responseError':function () {
+                console.log('4responseError');
+            }
+        }
+    });
+    angular.module('myApp').config(function ($httpProvider) {
+        $httpProvider.interceptors.push('myinterceptor');
+    })
+</script>
+</body>
+</html>

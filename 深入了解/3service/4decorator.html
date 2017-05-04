@@ -27,6 +27,7 @@
                     var args = Array.prototype.slice.call(arguments);
                     console.log(arguments)
                     args.unshift(new Date().toLocaleString());
+                    console.log(method,args,1)
                     method.apply(null,args)
                 }
             }
