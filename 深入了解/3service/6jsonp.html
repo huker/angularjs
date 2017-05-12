@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" ng-controller="myCtrl">
+    <input type="text" ng-model="data" keyword>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="item in items">{{item}}</li>
+    </ul>
+</div>
+<script src="../../js/angular.js"></script>
+<script>
+    angular.module('myApp',[]);
+    angular.module('myApp').controller('myCtrl',function($http){
+
+    });
+    angular.module('myApp').directive('keyword',function ($http,$window) {
+        return{
+            link:function (scope, element, attrs) {
+                scope.$watch(attrs['ngModel'],function () {
+                    if(scope.data||''){
+                        $http.jsonp('http://suggestion.baidu.com/su?wd='+scope.data+'&cb=show');
+                    }
+                });
+                $window.show = function (data) {
+                    scope.items = data.s;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

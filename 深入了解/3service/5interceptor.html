@@ -34,11 +34,11 @@
                 return response;
             },
             //请求发送失败或者被拦截器拒绝时调用
-            'requestError':function () {
+            'requestError':function (rejection) {
                 console.log('3requestError');
             },
             //
-            'responseError':function () {
+            'responseError':function (rejection) {
                 console.log('4responseError');
             }
         }

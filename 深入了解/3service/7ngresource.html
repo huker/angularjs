@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="container" ng-controller="bookCtrl as vm">
+    <table class="table table-bordered">
+        <tr>
+            <td>序号</td>
+            <td>书名</td>
+        </tr>
+        <tr>
+            <td>{{vm.book.id}}</td>
+            <td>{{vm.book.name}}</td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <td>序号</td>
+            <td>书名</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="book in vm.books">
+            <td>{{book.id}}</td>
+            <td>{{book.name}}</td>
+            <td>
+                <button class="btn btn-warning" ng-click="vm.change(book)">修改</button>
+                <button class="btn btn-danger" ng-click="vm.del(book)">删除</button>
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <td><input type="text" class="form-control" ng-model="vm.book.name"></td>
+            <td><button class="btn btn-primary" ng-click="vm.add()">提交</button></td>
+        </tr>
+    </table>
+</div>
+<script src="angular.js"></script>
+<!--<script src="https://cdn.bootcss.com/angular-resource/1.6.4/angular-resource.js"></script>-->
+<script src="https://cdn.bootcss.com/angular-resource/1.5.0/angular-resource.js"></script>
+<script>
+    angular.module('myApp',['ngResource']);
+    angular.module('myApp').factory('bookService',function ($resource) {
+        return $resource('/book/:id',{id:'@id'},{
+            update:{method:'PUT'}
+        })
+    });
+    angular.module('myApp').controller('bookCtrl',function (bookService) {
+        var vm = this;
+        vm.books = [];
+        vm.book = {};
+        bookService.query(function (data) {
+            vm.books = data;
+        });
+        vm.add = function () {
+            bookService.save(vm.book,function (data) {
+                vm.book = {};
+                vm.books.push(data);
+                console.log(data)
+            })
+        };
+        vm.change = function (book) {
+            vm.book = book;
+            console.log(book)
+        };
+
+        //捕捉到的http请求是 /1?name=xxx
+        vm.del = function (book) {
+            bookService.delete(book,function (data) {
+                var index = vm.books.indexOf(book);
+                vm.books.splice(index,1);
+            })
+        }
+    })
+</script>
+</body>
+</html>
